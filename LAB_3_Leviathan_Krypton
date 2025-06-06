@@ -1,1 +1,277 @@
+------------------------------------------------Laboratorio Leviathan - Krypton SIS2330 ------------------------------------------------
+    univ. Puña Canaviri Gabriela Katherine
+
+***********************Leviathan****************************
+
+    Para conectarnos a cada nivel usamos SSH con el puerto 2223:
+    ssh leviathanN@leviathan.labs.overthewire.org -p 2223
+    Donde N es el número de nivel.
+
+*Nivel 0 → Nivel 1*
+
+    Listamos los archivos ocultos y normales con ls -la
+    Se observa un archivo oculto llamado `.backup`.
+    Leemos su contenido con cat .backup
+
+    COMANDOS
+    ls -la
+    cat .backup
+
+                                              Contraseña: 3QJ3TgzHDq
+
+*Nivel 1 → Nivel 2*
+
+    Listamos los archivos con ls
+    Se observa un archivo ejecutable `check`.
+    Le damos permisos de ejecución y lo ejecutamos.
+
+    Ejecutamos el binario con ./check
+    Nos pide una entrada. Probamos con diferentes valores.
+
+    Al ejecutar strings sobre el binario, se encuentra la cadena "sex".
+    Introducimos "sex" como input.
+
+    COMANDOS
+    ls
+    chmod +x check
+    strings check
+    ./check
+    (escribimos: sex)
+
+                                                Contraseña: NsN1HwFoyN
+
+*Nivel 2 → Nivel 3*
+
+    Listamos los archivos con ls
+    Se observa un ejecutable `printfile`.
+    Le damos permisos de ejecución.
+
+    El ejecutable lee un archivo. No nos permite leer /etc/leviathan_pass/leviathan3 directamente.
+    Usamos un enlace simbólico.
+
+    Creamos el enlace simbólico:
+    ln -s /etc/leviathan_pass/leviathan3 link
+
+    Luego ejecutamos:
+    ./printfile link
+
+    COMANDOS
+    ls
+    chmod +x printfile
+    ln -s /etc/leviathan_pass/leviathan3 link
+    ./printfile link
+
+                                                 Contraseña: f0n8h2iWLP
+
+*Nivel 3 → Nivel 4*
+
+    Listamos los archivos con ls
+    Se observa un ejecutable `level3`.
+
+    Al analizar el binario con strings, se observa que comprueba si la entrada es "snlprintf".
+
+    Ejecutamos:
+    ./level3
+    (escribimos: snlprintf)
+
+    COMANDOS
+    ls
+    chmod +x level3
+    strings level3
+    ./level3
+    (escribimos: snlprintf)
+
+                                                  Contraseña: WG1egElCvO
+
+*Nivel 4 → Nivel 5*
+
+    Listamos los archivos con ls
+    Se observa un ejecutable `level4`.
+
+    Ejecutamos el binario y nos pide una contraseña.
+
+    Al ejecutar strings sobre el binario, encontramos la palabra "gaudeamus".
+
+    Ejecutamos:
+    ./level4
+    (escribimos: gaudeamus)
+
+    COMANDOS
+    ls
+    chmod +x level4
+    strings level4
+    ./level4
+    (escribimos: gaudeamus)
+
+                                                  Contraseña: 0dyxT7F4QD
+
+*Nivel 5 → Nivel 6*
+
+    Listamos los archivos con ls
+    Se observa un ejecutable `level5`.
+
+    El binario busca una entrada numérica.
+
+    Al revisar strings y el código, vemos que hay un `strcmp` que compara con el número 0xCAFEBABE en decimal.
+
+    0xCAFEBABE = 3405691582 en decimal.
+
+    Ejecutamos:
+    ./level5 3405691582
+
+    COMANDOS
+    ls
+    chmod +x level5
+    strings level5
+    ./level5 3405691582
+
+                                                  Contraseña: szo7HDB88w
+
+*Nivel 6 → Nivel 7*
+
+    Listamos los archivos con ls
+    Se observa un ejecutable `level6`.
+
+    Al ejecutar el binario, vemos que nos pide un archivo.
+
+    Creamos un archivo llamado `test` con la contraseña dentro.
+
+    echo "test" > test
+    ./level6 test
+
+    COMANDOS
+    ls
+    chmod +x level6
+    echo "test" > test
+    ./level6 test
+
+                                                  Contraseña: qEs5Io5yM8
+
+
+
+
+***********************Krypton****************************
+
+    Para conectarnos a cada nivel usamos SSH con el puerto 2222:
+    ssh kryptonN@krypton.labs.overthewire.org -p 2222
+    Donde N es el número de nivel.
+
+*Nivel 0 → Nivel 1*
+
+    Se proporciona una cadena codificada en Base64:
+    S1JZUFRPTklTR1JFQVQ=
+
+    Decodificamos con:
+    echo 'S1JZUFRPTklTR1JFQVQ=' | base64 -d
+
+    COMANDOS
+    echo 'S1JZUFRPTklTR1JFQVQ=' | base64 -d
+
+                                                        Contraseña: KRYPTONISGREAT
+
+*Nivel 1 → Nivel 2*
+
+    Leemos el archivo 'krypton2':
+    cat /krypton/krypton1/krypton2
+
+    El texto está cifrado con ROT13.
+
+    Decodificamos con:
+    cat /krypton/krypton1/krypton2 | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+    COMANDOS
+    cat /krypton/krypton1/krypton2 | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+                                                        Contraseña: ROTTEN
+
+*Nivel 2 → Nivel 3*
+
+    Navegamos al directorio del nivel
+    Listamos los archivos disponibles
+    Creamos un directorio temporal y establecemos los permisos adecuados
+    Creamos un enlace simbólico al archivo keyfile.dat
+    Creamos un archivo con el alfabeto en mayúsculas
+    Utilizamos el programa encrypt para cifrar el archivo
+    Observamos que se genera un archivo llamado ciphertext. Al visualizar su contenido
+        Notamos que el alfabeto ha sido desplazado 12 posiciones, es decir, se ha aplicado un cifrado ROT12.
+    Aplicamos el desplazamiento inverso para descifrar el contenido
+
+    COMANDOS
+    cd /krypton/krypton2
+    ls
+    mkdir /tmp/krypton2_work
+    chmod 777 /tmp/krypton2_work
+    cd /tmp/krypton2_work
+    ln -s /krypton/krypton2/keyfile.dat
+    echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ" > plaintext
+    /krypton/krypton2/encrypt plaintext
+    cat ciphertext
+    cat /krypton/krypton2/krypton3 | tr 'A-Z' 'O-ZA-N'
+
+
+
+
+                                                        Contraseña: CAESARISEASY
+
+*Nivel 3 → Nivel 4*
+
+    Navegamos al directorio del nivel
+    Listamos los archivos disponibles
+    Realizamos un análisis de frecuencia en los archivos found1, found2 y found3 para determinar la frecuencia de aparición de cada letra
+    Aplicamos el mapa de sustitución al contenido de krypton4 para obtener el mensaje en claro, que contiene la contraseña para el siguiente nivel.
+    
+    COMANDOS
+    cd /krypton/krypton3
+    ls
+    cat found1 found2 found3 | tr -d -c 'A-Z' | fold -w1 | sort | uniq -c | sort -nr
+
+
+
+                                                        Contraseña: BRUTE
+
+*Nivel 4 → Nivel 5*
+
+    Navegamos al directorio del nivel
+    Listamos los archivos disponibles
+    Observamos los archivos krypton6 y README.
+    Utilizamos una herramienta en línea, como Dcode, para analizar el texto cifrado y determinar la longitud 6
+
+    COMANDOS
+    cd /krypton/krypton4
+    ls
+
+                                                        Contraseña: CLEARTEXT
+
+*Nivel 5 → Nivel 6*
+
+    Leemos el archivo 'krypton6':
+    cat /krypton/krypton5/krypton6
+
+    El texto está cifrado con Vigenère, sin conocer la longitud de la clave.
+    Utilizamos herramientas para determinar la longitud de la clave y descifrar el mensaje.
+
+    COMANDOS
+    cat /krypton/krypton5/krypton6
+    (utilizar herramienta para determinar longitud de clave y descifrar)
+
+                                                        Contraseña: RANDOM
+
+*Nivel 6 → Nivel 7*
+
+    Leemos el archivo 'krypton7':
+    cat /krypton/krypton6/krypton7
+    El texto está cifrado con un cifrado de flujo utilizando XOR.
+    Realizamos un análisis para deducir la clave y descifrar el mensaje.
+
+    COMANDOS
+    cd /krypton/krypton6
+    ls
+    python -c 'print("A" * 50)' > /tmp/plaintext
+    ./encrypt6 /tmp/plaintext /tmp/ciphertext
+
+                                                      Contraseña: LFSRISNOTRANDOM
+
+
+
+
 

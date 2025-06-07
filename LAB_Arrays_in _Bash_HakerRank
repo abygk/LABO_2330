@@ -1,0 +1,115 @@
+------------------------------------------------ Laboratorio Arrays in Bash SIS2330------------------------------------------------
+    univ. Puña Canaviri Gabriela Katherine
+
+************************ Arrays in Bash **********************
+
+*Read in an Array →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y almacenarlos en un array. Luego, imprimir todos los elementos del array separados por espacios.
+
+    Código:
+
+    readarray countries
+    echo "${countries[@]}"
+
+------------------------------------------------
+
+*Display an element of an array →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y mostrar el elemento en la cuarta posición del array (índice 3).
+
+    Código:
+
+    readarray countries
+    echo "${countries[3]}"
+
+------------------------------------------------
+
+*Concatenate an array with itself →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar, almacenarlos en un array y luego concatenar el array consigo mismo. Finalmente, imprimir el array resultante.
+
+    Código:
+
+    readarray countries
+    countries+=("${countries[@]}")
+    echo "${countries[@]}"
+
+------------------------------------------------
+
+*Slice an Array →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y mostrar los elementos desde la cuarta hasta la octava posición del array (índices 3 a 7).
+
+    Código:
+
+    readarray countries
+    echo "${countries[@]:3:5}"
+
+------------------------------------------------
+
+*Filter an Array with Patterns →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y mostrar aquellos cuyos nombres comienzan con la letra "A".
+
+    Código:
+
+    readarray countries
+    for country in "${countries[@]}"; do
+      [[ $country == A* ]] && echo "$country"
+    done
+
+------------------------------------------------
+
+*Count the number of elements in an Array →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y mostrar la cantidad total de elementos en el array.
+
+    Código:
+
+    readarray countries
+    echo "${#countries[@]}"
+
+------------------------------------------------
+
+*Remove the First Capital Letter from Each Element →*
+
+    Descripción básica:
+    Leer una lista de países desde la entrada estándar y eliminar la primera letra mayúscula de cada nombre de país.
+
+    Código:
+
+    readarray countries
+    for country in "${countries[@]}"; do
+      echo "${country/[A-Z]/}"
+    done
+
+------------------------------------------------
+
+*Lonely Integer - Bash! →*
+
+    Descripción básica:
+    Leer una lista de números desde la entrada estándar y encontrar el número que aparece solo una vez.
+
+    Código:
+
+    read
+    readarray numbers
+    declare -A count
+    for num in "${numbers[@]}"; do
+      ((count[$num]++))
+    done
+    for num in "${!count[@]}"; do
+      if [[ ${count[$num]} -eq 1 ]]; then
+        echo "$num"
+        break
+      fi
+    done
+
+

@@ -3,7 +3,7 @@
 Bash Challenges
 *Let's Echo →*
 
-    Descripción:
+    Descripción Básica:
     Imprimir en pantalla la palabra "HELLO".
 
     Código:
@@ -14,7 +14,7 @@ Bash Challenges
 
 *Looping and Skipping →*
 
-    Descripción:
+    Descripción Básica:
     Imprimir los números impares del 1 al 99.
 
     Código:
@@ -28,7 +28,7 @@ Bash Challenges
 
 *A Personalized Echo →*
 
-    Descripción:
+    Descripción Básica:
     Leer un nombre del usuario y mostrar un mensaje personalizado.
 
     Código:
@@ -40,7 +40,7 @@ Bash Challenges
 
 *Looping with Numbers →*
 
-    Descripción:
+    Descripción Básica:
     Imprimir los números del 1 al 50.
 
     Código:
@@ -54,7 +54,7 @@ Bash Challenges
 
 *The World of Numbers →*
 
-    Descripción:
+    Descripción Básica:
     Leer dos números y mostrar su suma, resta, multiplicación y división.
 
     Código:
@@ -70,7 +70,7 @@ Bash Challenges
 
 *Comparing Numbers →*
 
-    Descripción:
+    Descripción Básica:
     Comparar dos números y mostrar el resultado.
 
     Código:
@@ -89,7 +89,7 @@ Bash Challenges
 
 *Getting started with conditionals →*
 
-    Descripción:
+    Descripción Básica:
     Leer un carácter y mostrar "YES" o "NO" dependiendo de su valor.
 
     Código:
@@ -105,7 +105,7 @@ Bash Challenges
 
 *More on Conditionals →*
 
-    Descripción:
+    Descripción Básica:
     Leer tres números y determinar el tipo de triángulo que forman.
 
     Código:
@@ -125,7 +125,7 @@ Bash Challenges
 
 *Arithmetic Operations →*
 
-    Descripción:
+    Descripción Básica:
     Leer una expresión aritmética y mostrar el resultado con tres decimales.
 
     Código:
@@ -137,7 +137,7 @@ Bash Challenges
 
 *Compute the Average →*
 
-    Descripción:
+    Descripción Básica:
     Leer N números y calcular su promedio con tres decimales.
 
     Código:
@@ -155,7 +155,7 @@ Bash Challenges
 
 *Functions and Fractals - Recursive Trees - Bash! →*
 
-    Descripción:
+    Descripción Básica:
     Dibujar árboles fractales de manera recursiva utilizando un array asociativo.
 
     Código:

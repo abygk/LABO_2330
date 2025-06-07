@@ -1,0 +1,195 @@
+------------------------------------------------ Laboratorio Bash Challenges ------------------------------------------------
+    univ. Puña Canaviri Gabriela Katherine
+Bash Challenges
+*Let's Echo →*
+
+    Descripción:
+    Imprimir en pantalla la palabra "HELLO".
+
+    Código:
+
+    echo HELLO
+
+------------------------------------------------
+
+*Looping and Skipping →*
+
+    Descripción:
+    Imprimir los números impares del 1 al 99.
+
+    Código:
+
+    for ((i=1; i<=99; i+=2))
+    do
+      echo $i
+    done
+
+------------------------------------------------
+
+*A Personalized Echo →*
+
+    Descripción:
+    Leer un nombre del usuario y mostrar un mensaje personalizado.
+
+    Código:
+
+    read name
+    echo "Welcome $name"
+
+------------------------------------------------
+
+*Looping with Numbers →*
+
+    Descripción:
+    Imprimir los números del 1 al 50.
+
+    Código:
+
+    for ((i=1; i<=50; i++))
+    do
+      echo $i
+    done
+
+------------------------------------------------
+
+*The World of Numbers →*
+
+    Descripción:
+    Leer dos números y mostrar su suma, resta, multiplicación y división.
+
+    Código:
+
+    read a
+    read b
+    echo $((a + b))
+    echo $((a - b))
+    echo $((a * b))
+    echo $((a / b))
+
+------------------------------------------------
+
+*Comparing Numbers →*
+
+    Descripción:
+    Comparar dos números y mostrar el resultado.
+
+    Código:
+
+    read x
+    read y
+    if (( x < y )); then
+      echo "X is less than Y"
+    elif (( x > y )); then
+      echo "X is greater than Y"
+    else
+      echo "X is equal to Y"
+    fi
+
+------------------------------------------------
+
+*Getting started with conditionals →*
+
+    Descripción:
+    Leer un carácter y mostrar "YES" o "NO" dependiendo de su valor.
+
+    Código:
+
+    read char
+    if [[ $char == "Y" || $char == "y" ]]; then
+      echo "YES"
+    elif [[ $char == "N" || $char == "n" ]]; then
+      echo "NO"
+    fi
+
+------------------------------------------------
+
+*More on Conditionals →*
+
+    Descripción:
+    Leer tres números y determinar el tipo de triángulo que forman.
+
+    Código:
+
+    read a
+    read b
+    read c
+    if (( a == b && b == c )); then
+      echo "EQUILATERAL"
+    elif (( a == b || b == c || a == c )); then
+      echo "ISOSCELES"
+    else
+      echo "SCALENE"
+    fi
+
+------------------------------------------------
+
+*Arithmetic Operations →*
+
+    Descripción:
+    Leer una expresión aritmética y mostrar el resultado con tres decimales.
+
+    Código:
+
+    read line;
+    printf "%.3f" $(echo "scale = 4; $line" | bc);
+
+------------------------------------------------
+
+*Compute the Average →*
+
+    Descripción:
+    Leer N números y calcular su promedio con tres decimales.
+
+    Código:
+
+    read n
+    sum=0
+    for ((i=0; i<n; i++)); do
+      read num
+      sum=$((sum + num))
+    done
+    average=$(echo "scale=5; $sum / $n" | bc -l)
+    printf "%.3f\n" "$average"
+
+------------------------------------------------
+
+*Functions and Fractals - Recursive Trees - Bash! →*
+
+    Descripción:
+    Dibujar árboles fractales de manera recursiva utilizando un array asociativo.
+
+    Código:
+
+    declare -A a
+    f() {
+        local d=$1 l=$2 r=$3 c=$4
+        [[ $d -eq 0 ]] && return
+        for ((i=l; i; i--)); do
+            a[$((r-i)).$c]=1
+        done
+        ((r -= l))
+        for ((i=l; i; i--)); do
+            a[$((r-i)).$((c-i))]=1
+            a[$((r-i)).$((c+i))]=1
+        done
+        f $((d-1)) $((l/2)) $((r-l)) $((c-l))
+        f $((d-1)) $((l/2)) $((r-l)) $((c+l))
+    }
+    read n
+    f $n 16 63 49
+    for ((i=0; i<63; i++)); do
+        for ((j=0; j<100; j++)); do
+            if [[ ${a[$i.$j]} ]]; then
+                printf 1
+            else
+                printf _
+            fi
+        done
+        echo
+    done
+
+
+
+
+
+

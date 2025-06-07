@@ -1,0 +1,333 @@
+------------------------------------------------ Laboratorio Text Processing SIS2330 ------------------------------------------------
+    univ. Puña Canaviri Gabriela Katherine
+
+*************Text Processing*****************
+
+
+Cut #1 →*
+
+    Descripción Básica:
+    Extraer los primeros 20 caracteres de cada línea de la entrada.
+
+    Código:
+
+    cut -c1-20
+
+------------------------------------------------
+
+Cut #2 →
+
+    Descripción Básica:
+    Extraer el tercer carácter de cada línea.
+
+    Código:
+
+    cut -c3
+
+------------------------------------------------
+
+Cut #3 →
+
+    Descripción Básica::
+    Extraer los caracteres del 2 al 7 de cada línea.
+
+    Código:
+
+    cut -c2-7
+
+------------------------------------------------
+
+Cut #4 *
+
+    Descripción Básica::
+    Extraer la primera palabra de cada línea, usando el espacio como delimitador.
+
+    Código:
+
+    cut -d' ' -f1
+
+------------------------------------------------
+
+Cut #5 →*
+
+    Descripción Básica:
+    Extraer los campos 2 y 3 de cada línea, usando el espacio como delimitador.
+
+    Código:
+
+    cut -d' ' -f2-3
+
+------------------------------------------------
+
+Cut #6 *
+
+    Descripción Básica:
+    Extraer los campos 1-3 de cada línea, usando el delimitador de tabulación.
+
+    Código:
+
+    cut -f1-3
+
+------------------------------------------------
+
+Cut #7 
+
+    Descripción Básica:
+    Extraer los campos 2-4 de cada línea, usando el delimitador de tabulación.
+
+    Código:
+
+    cut -f2-4
+
+------------------------------------------------
+
+Head of a Text File #1 →*
+
+    Descripción Básica::
+    Imprimir las primeras 20 líneas de un archivo.
+
+    Código:
+
+    head -n 20
+
+------------------------------------------------
+
+Head of a Text File #2 *
+
+    Descripción Básica:
+    Imprimir las primeras 10 caracteres de un archivo.
+
+    Código:
+
+    head -c 20
+
+------------------------------------------------
+
+Middle of a Text File →*
+
+    Descripción Básica::
+    Imprimir las líneas 12 a 22 de un archivo.
+
+    Código:
+
+    head -n 22 | tail -n 11
+
+------------------------------------------------
+
+Tail of a Text File #1 →*
+
+    Descripción Básica:
+    Imprimir las últimas 20 líneas de un archivo.
+
+    Código:
+
+    tail -n 20
+
+------------------------------------------------
+
+Tail of a Text File #2 →*
+
+    Descripción Básica:
+    Imprimir los últimos 20 caracteres de un archivo.
+
+    Código:
+
+    tail -c 20
+
+------------------------------------------------
+
+* 'Tr' Command #1 →*
+
+    Descripción Básica::
+    Reemplazar todos los caracteres en minúscula por mayúscula.
+
+    Código:
+
+    tr 'a-z' 'A-Z'
+
+------------------------------------------------
+
+*'Tr' Command #2 →*
+
+    Descripción Básica::
+    Eliminar todos los caracteres en minúscula.
+
+    Código:
+
+    tr -d 'a-z'
+
+------------------------------------------------
+
+*'Tr' Command #3 →*
+
+    Descripción Básica:
+    Reemplazar múltiples espacios consecutivos con un único espacio.
+
+    Código:
+
+    tr -s ' '
+------------------------------------------------
+*Sort Command #1 →*
+
+    Descripción Básica:
+    Ordenar las líneas de un archivo en orden ascendente.
+
+    Código:
+
+    sort
+
+------------------------------------------------
+
+*Sort Command #2 →*
+
+    Descripción Básica:
+    Ordenar las líneas de un archivo en orden descendente.
+
+    Código:
+
+    sort -r
+
+------------------------------------------------
+
+*Sort Command #3 →*
+
+    Descripción Básica:
+    Ordenar numéricamente las líneas de un archivo.
+
+    Código:
+
+    sort -n
+
+------------------------------------------------
+
+*Sort Command #4 →*
+
+    Descripción Básica:
+    Ordenar numéricamente las líneas de un archivo en orden descendente.
+
+    Código:
+
+    sort -nr
+
+------------------------------------------------
+
+*Sort Command #5 →*
+
+    Descripción Básica:
+    Ordenar las líneas de un archivo por la clave en la segunda columna.
+
+    Código:
+
+    sort -k2
+
+------------------------------------------------
+
+*Sort Command #6 →*
+
+    Descripción Básica:
+    Ordenar las líneas de un archivo por la clave en la segunda columna en orden descendente.
+
+    Código:
+
+    sort -k2r
+
+------------------------------------------------
+
+*Sort Command #7 →*
+
+    Descripción Básica:
+    Ordenar las líneas de un archivo por la clave en la segunda columna numéricamente.
+
+    Código:
+
+    sort -k2n
+
+------------------------------------------------
+*'Uniq' Command #1 →*
+
+    Descripción Básica:
+    Eliminar líneas duplicadas consecutivas.
+
+    Código:
+
+    uniq
+
+------------------------------------------------
+
+*'Uniq' Command #2 →*
+
+    Descripción Básica:
+    Mostrar solo las líneas duplicadas.
+
+    Código:
+
+    uniq -d
+
+------------------------------------------------
+
+*'Uniq' Command #3 →*
+
+    Descripción Básica:
+    Mostrar solo las líneas únicas.
+
+    Código:
+
+    uniq -u
+
+------------------------------------------------
+
+*'Uniq' Command #4 →*
+
+    Descripción Básica:
+    Mostrar cada línea con el número de veces que aparece.
+
+    Código:
+
+    uniq -c
+
+------------------------------------------------
+Text Processing - Paste
+------------------------------------------------
+
+*Paste - 1 →*
+
+    Descripción Básica:
+    Combinar cada par de líneas en una sola línea, separadas por tabulaciones.
+
+    Código:
+
+    paste -d '\t' - - 
+
+------------------------------------------------
+
+*Paste - 2 →*
+
+    Descripción Básica:
+    Combinar cada grupo de tres líneas en una sola línea, separadas por tabulaciones.
+
+    Código:
+
+    paste -d '\t' - - -
+
+------------------------------------------------
+
+*Paste - 3 →*
+
+    Descripción Básica:
+    Combinar cada grupo de tres líneas en una sola línea, separadas por punto y coma.
+
+    Código:
+
+    paste -d ';' - - -
+
+------------------------------------------------
+
+*Paste - 4 →*
+
+    Descripción Básica:
+    Combinar cada grupo de tres líneas en una sola línea, separadas por punto y coma y sin espacios.
+
+    Código:
+
+    paste -d ';' - - - | tr -d ' '
+

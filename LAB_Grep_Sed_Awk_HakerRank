@@ -1,0 +1,157 @@
+------------------------------------------------ Laboratorio Grep Sed Awk SIS2330 ------------------------------------------------
+    univ. Puña Canaviri Gabriela Katherine
+
+*********************** Grep Sed Awk ********************************
+
+*'Grep' #1 →*
+
+    Descripción básica:
+    Filtrar líneas que contienen la palabra "the" como una palabra completa.
+
+    Código:
+
+    grep -w "the"
+
+------------------------------------------------
+
+*'Grep' #2 →*
+
+    Descripción básica:
+    Filtrar líneas que contienen la palabra "the" como una palabra completa, sin distinguir entre mayúsculas y minúsculas.
+
+    Código:
+
+    grep -iw "the"
+
+------------------------------------------------
+
+*'Grep' #3 →*
+
+    Descripción básica:
+    Filtrar líneas que no contienen la palabra "that" como una palabra completa.
+
+    Código:
+
+    grep -vw "that"
+
+------------------------------------------------
+
+*'Grep' - A →*
+
+    Descripción básica:
+    Filtrar líneas que contienen dos o más ocurrencias consecutivas del mismo dígito.
+
+    Código:
+
+    grep '\([0-9]\) *\1'
+
+------------------------------------------------
+
+*'Grep' - B →*
+
+    Descripción básica:
+    Filtrar líneas que contienen dos o más ocurrencias consecutivas del mismo dígito, permitiendo espacios entre ellos.
+
+    Código:
+
+    grep -P '(\d)(?: *\1)+'
+
+------------------------------------------------
+
+*'Sed' command #1 →*
+
+    Descripción básica:
+    Reemplazar la primera aparición de la palabra "the" por "this" en cada línea.
+
+    Código:
+
+    sed 's/\bthe\b/this/'
+
+------------------------------------------------
+
+*'Sed' command #2 →*
+
+    Descripción básica:
+    Reemplazar todas las apariciones de la palabra "thy" por "your" en cada línea.
+
+    Código:
+
+    sed 's/\bthy\b/your/g'
+
+------------------------------------------------
+
+*'Sed' command #3 →*
+
+    Descripción básica:
+    Reemplazar la primera aparición de la palabra "thy" por "your" en cada línea.
+
+    Código:
+
+    sed 's/\bthy\b/your/'
+
+------------------------------------------------
+
+*'Sed' command #4 →*
+
+    Descripción básica:
+    Reemplazar los primeros 12 dígitos de una tarjeta de crédito por asteriscos.
+
+    Código:
+
+    sed -E 's/[0-9]{4} [0-9]{4} [0-9]{4}/**** **** ****/'
+
+------------------------------------------------
+
+*'Sed' command #5 →*
+
+    Descripción básica:
+    Reemplazar los primeros 12 dígitos de una tarjeta de crédito por asteriscos, manteniendo los últimos 4 dígitos visibles.
+
+    Código:
+
+    sed -E 's/([0-9]{4} ){3}/**** **** **** /'
+
+------------------------------------------------
+
+*'Awk' - 1 →*
+
+    Descripción básica:
+    Imprimir la tercera columna de cada línea.
+
+    Código:
+
+    awk '{print $3}'
+
+------------------------------------------------
+
+*'Awk' - 2 →*
+
+    Descripción básica:
+    Imprimir la suma de la segunda y tercera columna de cada línea.
+
+    Código:
+
+    awk '{print $2 + $3}'
+
+------------------------------------------------
+
+*'Awk' - 3 →*
+
+    Descripción básica:
+    Imprimir la línea si la suma de la segunda y tercera columna es mayor o igual a 50.
+
+    Código:
+
+    awk '$2 + $3 >= 50'
+
+------------------------------------------------
+
+*'Awk' - 4 →*
+
+    Descripción básica:
+    Imprimir las líneas en pares, separadas por punto y coma.
+
+    Código:
+
+    awk '{ORS=NR%2?";":"\n"} {print}'
+
